@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #000000;
+  --color-foreground: #ffffff;
+  
+  --color-primary-500: #0070F3; /* Vercel Blue */
+  --color-primary-600: #0761d1;
+  
+  --color-muted: #888888;
+  --color-border: #333333;
+  --color-card: #111111;
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-inter), sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-glass backdrop-blur-md border border-border;
+  }
+}

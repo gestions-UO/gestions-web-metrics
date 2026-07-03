@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    restart: always
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    command: node apps/api/dist/index.js
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=${JWT_SECRET:-super-secret-key-gestions-web-metrics}
+      - SMTP_HOST=${SMTP_HOST}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER}
+      - SMTP_PASS=${SMTP_PASS}
+      - SMTP_FROM=${SMTP_FROM}
+    depends_on:
+      - redis
+    ports:
+      - "3002:3002"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    command: npm run start --workspace=web
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://api:3002/api/v1
+      - NEXT_PUBLIC_APP_DOMAIN=${NEXT_PUBLIC_APP_DOMAIN:-https://analytics.midominio.com}
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+
+volumes:
+  redis_data:
