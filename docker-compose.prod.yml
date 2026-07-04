@@ -10,7 +10,10 @@ services:
       - "6379:6379"
 
   api:
-    image: gestionsuo/gestions-web-metrics:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
     command: node apps/api/dist/index.js
     restart: always
     environment:
@@ -29,7 +32,10 @@ services:
       - "3002:3002"
 
   web:
-    image: gestionsuo/gestions-web-metrics:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
     command: npm run start --workspace=web
     restart: always
     environment:
