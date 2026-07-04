@@ -8,7 +8,7 @@ import jsPDF from 'jspdf';
 
 interface ExportAuditMenuProps {
   auditData: any;
-  targetRef: React.RefObject<HTMLDivElement>;
+  targetRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function ExportAuditMenu({ auditData, targetRef }: ExportAuditMenuProps) {

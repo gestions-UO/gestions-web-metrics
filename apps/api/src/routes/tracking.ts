@@ -56,7 +56,7 @@ trackingRouter.post('/collect', async (req, res) => {
     if (Array.isArray(ip)) ip = ip[0];
 
     // Check Redis Cache for IP Location
-    let locationData = { country: 'Unknown', city: 'Unknown' };
+    let locationData: { country: string; city: string; countryCode?: string } = { country: 'Unknown', city: 'Unknown' };
     const cacheKey = `ip_loc:${ip}`;
 
     const cachedLoc = await redisClient.get(cacheKey);

@@ -8,7 +8,7 @@ import jsPDF from 'jspdf';
 
 interface ExportMenuProps {
   dataMetrics: any;
-  targetRef: React.RefObject<HTMLDivElement>;
+  targetRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function ExportMenu({ dataMetrics, targetRef }: ExportMenuProps) {
