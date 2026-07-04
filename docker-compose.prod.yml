@@ -28,8 +28,8 @@ services:
       - SMTP_FROM=${SMTP_FROM}
     depends_on:
       - redis
-    ports:
-      - "3002:3002"
+    expose:
+      - "3002"
 
   web:
     build:
@@ -45,8 +45,8 @@ services:
       - NEXT_PUBLIC_APP_DOMAIN=${NEXT_PUBLIC_APP_DOMAIN:-https://analytics.midominio.com}
     depends_on:
       - api
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
 
 volumes:
   redis_data:
