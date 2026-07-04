@@ -25,7 +25,7 @@ export function ExportAuditMenu({ auditData, targetRef }: ExportAuditMenuProps) 
     toast.info('Generating PDF...');
     
     try {
-      const canvas = await html2canvas(targetRef.current, { scale: 2 });
+      const canvas = await html2canvas(targetRef.current, { scale: 2 } as any);
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
         orientation: 'portrait',
